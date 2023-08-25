@@ -13,6 +13,7 @@ class Medicamento:
     def asignarDosis(self,med):
         self.__dosis = med 
 
+
 class Mascota:
     
     def __init__(self):
@@ -48,13 +49,8 @@ class Mascota:
         self.__fecha_ingreso=f
     def asignarLista_Medicamentos(self,n):
         self.__lista_medicamentos = n  
-    
-    def verificarMedicamento(self,medicamento):
-        for q in self.__lista_medicamentos:
-            if medicamento in q.verNombre():
-                return True
-        return False
-    
+
+
 class sistemaV:
     def __init__(self):
         self.__lista_mascotas = []
@@ -93,10 +89,19 @@ class sistemaV:
                 self.__lista_mascotas.remove(masc)  #opcion con el pop
                 return True  #eliminado con exito
         return False 
+    
+    def verificarMedicamento(self,historia_,medicamento):
+        for q in self.__lista_mascotas:
+            if historia_ == q.verHistoria():
+                for l in q.verLista_Medicamentos():
+                    if medicamento == l.verNombre():
+                        return True
+        return False
+    
 
 def main():
     servicio_hospitalario = sistemaV()
-    mas= Mascota()
+    
     # sistma=sistemaV()
     while True:
         menu=int(input('''\nIngrese una opción: 
@@ -115,6 +120,10 @@ def main():
             historia=int(input("Ingrese la historia clínica de la mascota: "))
             #   verificacion=servicio_hospitalario.verDatosPaciente(historia)
             if servicio_hospitalario.verificarExiste(historia) == False:
+
+                canino = Mascota()
+                felino = Mascota()
+
                 nombre=input("Ingrese el nombre de la mascota: ")
                 tipo=input("Ingrese el tipo de mascota (felino o canino): ")
                 peso=int(input("Ingrese el peso de la mascota: "))
@@ -123,28 +132,27 @@ def main():
                 lista_med=[]
 
                 for i in range(0,nm):
-                    nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
-                    dosis =int(input("Ingrese la dosis: "))
-                    medicamento = Medicamento()
-                    
-                    if mas.verificarMedicamento(nombre_medicamentos) == True:
-                        print('El medicamento ingresado ya existe en la historia clínica de esta mascota')
+                    while True:
+                        nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
                         
-                    else:
-                        medicamento.asignarNombre(nombre_medicamentos)
-                        medicamento.asignarDosis(dosis)
-                        lista_med.append(medicamento)
-                    
-                        servicio_hospitalario.ingresarMascota(mas)
-                        mas.asignarNombre(nombre)
-                        mas.asignarHistoria(historia)
-                        mas.asignarPeso(peso)
-                        mas.asignarTipo(tipo)
-                        mas.asignarFecha(fecha)
-                        mas.asignarLista_Medicamentos(lista_med)
-
-                
-                        
+                        if servicio_hospitalario.verificarMedicamento(historia,nombre_medicamentos) == True:
+                            print('El medicamento ingresado ya existe en la historia clínica de esta mascota')
+                            
+                        else:
+                            dosis =int(input("Ingrese la dosis: "))
+                            medicamento = Medicamento()
+                            medicamento.asignarNombre(nombre_medicamentos)
+                            medicamento.asignarDosis(dosis)
+                            lista_med.append(medicamento)
+                            mas= Mascota()
+                            servicio_hospitalario.ingresarMascota(mas)
+                            mas.asignarNombre(nombre)
+                            mas.asignarHistoria(historia)
+                            mas.asignarPeso(peso)
+                            mas.asignarTipo(tipo)
+                            mas.asignarFecha(fecha)
+                            mas.asignarLista_Medicamentos(lista_med)
+                            break
 
             else:
                 print("Ya existe la mascota con el numero de histoira clinica")
