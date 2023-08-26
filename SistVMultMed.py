@@ -1,3 +1,4 @@
+from datetime import date
 class Medicamento:
     def __init__(self):
         self.__nombre = "" 
@@ -21,7 +22,7 @@ class Mascota:
         self.__historia=0
         self.__tipo=" "
         self.__peso=" "
-        self.__fecha_ingreso=" "
+        self.__fecha_ingreso = ''
         self.__lista_medicamentos=[]
         
     def verNombre(self):
@@ -45,8 +46,8 @@ class Mascota:
         self.__tipo=t
     def asignarPeso(self,p):
         self.__peso=p
-    def asignarFecha(self,f):
-        self.__fecha_ingreso=f
+    def asignarFecha(self, f):
+        self.__fecha_ingreso = f
     def asignarLista_Medicamentos(self,n):
         self.__lista_medicamentos = n  
 
@@ -101,6 +102,8 @@ class sistemaV:
 
 def main():
     servicio_hospitalario = sistemaV()
+    lista_felinos = {}
+    lista_caninos = {}
     
     # sistma=sistemaV()
     while True:
@@ -121,13 +124,28 @@ def main():
             #   verificacion=servicio_hospitalario.verDatosPaciente(historia)
             if servicio_hospitalario.verificarExiste(historia) == False:
 
-                canino = Mascota()
-                felino = Mascota()
+                while True:
+
+                    tipo = input("""Ingrese el tipo de mascota: 
+                                'F' si es felino
+                                'C' si es canino
+                                
+                                > """)
+                    tipo = tipo.upper()
+
+                    if tipo == 'F':
+                        break
+                    elif tipo == 'C':
+                        break
+                    else:
+                        print('No es una opción válida. Intente de nuevo.')
 
                 nombre=input("Ingrese el nombre de la mascota: ")
-                tipo=input("Ingrese el tipo de mascota (felino o canino): ")
                 peso=int(input("Ingrese el peso de la mascota: "))
-                fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
+
+               
+
+
                 nm=int(input("Ingrese cantidad de medicamentos: "))
                 lista_med=[]
 
@@ -144,6 +162,7 @@ def main():
                             medicamento.asignarNombre(nombre_medicamentos)
                             medicamento.asignarDosis(dosis)
                             lista_med.append(medicamento)
+
                             mas= Mascota()
                             servicio_hospitalario.ingresarMascota(mas)
                             mas.asignarNombre(nombre)
@@ -152,10 +171,36 @@ def main():
                             mas.asignarTipo(tipo)
                             mas.asignarFecha(fecha)
                             mas.asignarLista_Medicamentos(lista_med)
+
+
                             break
+
+                if tipo == 'F':
+                    listaMed_1 = servicio_hospitalario.verMedicamento(historia)
+                    if listaMed_1 != None: 
+                        for k in listaMed_1:
+                            name = k.verNombre()
+                            dos = k.verDosis()
+
+                    lista_felinos[historia] = {'nombre': mas.verNombre(),'peso': mas.verPeso(), 'fecha':mas.verFecha(), 'medicamentos': {'nombre': name, 'dosis': dos}}
+                
+                elif tipo == 'C':
+                    listaMed_2 = servicio_hospitalario.verMedicamento(historia)
+                    if listaMed_2 != None: 
+                        for k in listaMed_2:
+                            name = k.verNombre()
+                            dos = k.verDosis()
+
+                    lista_caninos[historia] = {'nombre': mas.verNombre(),'peso': mas.verPeso(), 'fecha':mas.verFecha(), 'medicamentos': {'nombre': name, 'dosis': dos}}
+                
+
+
+                print(lista_felinos)
+                
 
             else:
                 print("Ya existe la mascota con el numero de histoira clinica")
+
 
         elif menu==2: # Ver fecha de ingreso
             q = int(input("Ingrese la historia clínica de la mascota: "))
