@@ -180,7 +180,7 @@ def main():
                 for i in range(0,nm):
                     while True:
                         nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
-                        nombre_medicamentos.upper()
+                        nombre_medicamentos = nombre_medicamentos.upper()
                         
                         if servicio_hospitalario.verificarMedicamento(historia,nombre_medicamentos) == True:
                             print('El medicamento ingresado ya existe en la historia clínica de esta mascota')
@@ -225,10 +225,10 @@ def main():
 
 
                 for j in lista_felinos:
-                    print(f'La historia clínica {j} corresponde a un felino llamado {lista_felinos[j]["nombre"]}, su peso es de {lista_felinos[j]["peso"]}, llegó el {lista_felinos[j]["fecha"]} y se le administran los siguientes medicamentos {lista_felinos[j]["medicamentos"]}')
+                    print(f'\nLa historia clínica {j} corresponde a un felino llamado {lista_felinos[j]["nombre"]}, su peso es de {lista_felinos[j]["peso"]}, llegó el {lista_felinos[j]["fecha"]}')
                 
                 for r in lista_caninos:
-                    print(f'La historia clínica {r} corresponde a un felino llamado {lista_caninos[r]["nombre"]}, su peso es de {lista_caninos[r]["peso"]}, llegó el {lista_caninos[r]["fecha"]} y se le administran los siguientes medicamentos {lista_caninos[r]["medicamentos"]}')
+                    print(f'\nLa historia clínica {r} corresponde a un felino llamado {lista_caninos[r]["nombre"]}, su peso es de {lista_caninos[r]["peso"]}, llegó el {lista_caninos[r]["fecha"]}')
                 
 
             else:
